@@ -8,7 +8,7 @@ Este trabalho investiga o processo estocástico conhecido como **caminhada aleat
 
 São analisadas duas situações:
 
-- **Caminhada viesada**, em que a probabilidade de mover-se para a direita é $p>0{,}50$.
+- **Caminhada viesada**, em que a probabilidade de mover-se para a direita é $p>0{,}50$;
 - **Caminhada simétrica**, em que $p=0{,}50$.
 
 No conjunto de exercícios implementado no notebook `Lista2.ipynb`, foram construídas trajetórias individuais, versões vetorizadas para um conjunto de partículas, histogramas de posições, mapas de calor e superfícies tridimensionais da evolução temporal da distribuição.
@@ -22,7 +22,6 @@ $$
 \begin{cases}
 +1, & \text{com probabilidade } p,\\
 -1, & \text{com probabilidade } 1-p.
-
 \end{cases}
 $$
 
@@ -83,7 +82,7 @@ O gerador é definido por
 rng = np.random.default_rng()
 ```
 
-A variável `rng` encapsula o gerador moderno de números pseudoaleatórios do NumPy. O uso de um gerador explícito torna a geração separada de implementações legadas baseadas em `np.random.random` e permite controlar os parâmetros estatísticos da simulação.
+A variável `rng` encapsula o gerador moderno de números pseudoaleatórios do NumPy. O uso de um gerador explícito diferencia esta implementação das funções legadas baseadas em `np.random.random` e permite controlar o estado do processo aleatório da simulação.
 
 #### Principais variáveis
 
@@ -97,7 +96,7 @@ A variável `rng` encapsula o gerador moderno de números pseudoaleatórios do N
 | `traj` | Trajetória cumulativa de uma caminhada rápida ou matriz com todas as trajetórias. |
 | `passos` em `randomwalkrapido` | Vetor de incrementos $+1$ ou $-1$ sorteados pelo NumPy. |
 | `trajetoria` | Soma cumulativa dos incrementos ao longo do tempo. |
-| `media1`, `media2` | Posicionais médias do ensemble em cada instante, respectivamente para $p=0{,}62$ e $p=0{,}50$. |
+| `media1`, `media2` | Médias das posições do ensemble em cada instante, respectivamente para $p=0{,}62$ e $p=0{,}50$. |
 | `desviopadrao1`, `desviopadrao2` | Desvio padrão das posições no ensemble em cada instante. |
 | `x1`, `x2` | Matrizes cujas linhas representam o tempo e cujas colunas representam caminhantes. |
 | `num_bins` | Número de intervalos usados para construir os histogramas temporais. |
@@ -150,7 +149,7 @@ size=[passos, bebados]
 
 como tamanho. O resultado possui uma matriz de incrementos com `passos` linhas e `bebados` colunas. Cada linha representa um instante e cada coluna representa um caminhante. A função `np.cumsum(..., axis=0)` acumula os incrementos ao longo das linhas, preservando uma coluna por caminhante.
 
-Antes da acumulação, o conjunto apresenta inicialmente uma matriz com 500 caminhantes em todos os passos. Depois da vstack da origem, `x1` e `x2` passam a conter inclusive a linha inicial correspondente ao tempo $t=0$.
+Antes da acumulação, o conjunto apresenta inicialmente uma matriz com 500 caminhantes em todos os passos. Depois da operação `np.vstack` da origem, `x1` e `x2` passam a conter inclusive a linha inicial correspondente ao tempo $t=0$.
 
 A média em cada instante é calculada como
 
@@ -161,7 +160,7 @@ $$
 em que $N_b=500$ é o número de caminhantes. O desvio padrão é
 
 $$
-\sigma_X(t)=\sqrt{\frac{1}{N_b}\sum_{j=1}^{N_b}\left[X_j(t)-\mu_X(t)ight]^2}.
+\sigma_X(t)=\sqrt{\frac{1}{N_b}\sum_{j=1}^{N_b}\left[X_j(t)-\mu_X(t)\right]^2}.
 $$
 
 O gráfico compara:
