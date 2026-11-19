@@ -8,8 +8,8 @@ Este trabalho investiga o processo estocástico conhecido como **caminhada aleat
 
 São analisadas duas situações:
 
-- **Caminhada viesada**, em que a probabilidade de mover-se para a direita é $p>0,50$;
-- **Caminhada simétrica**, em que $p=0,50$.
+- **Caminhada viesada**, em que a probabilidade de mover-se para a direita é $p>0{,}50$;
+- **Caminhada simétrica**, em que $p=0{,}50$.
 
 No conjunto de exercícios implementado no notebook `Lista2.ipynb`, foram construídas trajetórias individuais, versões vetorizadas para um conjunto de partículas, histogramas de posições, mapas de calor e superfícies tridimensionais da evolução temporal da distribuição.
 
@@ -18,11 +18,11 @@ No conjunto de exercícios implementado no notebook `Lista2.ipynb`, foram constr
 Considere uma caminhada em que, em cada passo $n$, a variável aleatória $\xi_n$ assume os valores
 
 $$
-\xi_n = +1 \quad \text{com probabilidade } p;
-$$
-
-$$
-\xi_n = -1 \quad \text{com probabilidade } 1-p.
+\xi_n=
+\begin{cases}
++1, & \text{com probabilidade } p,\\
+-1, & \text{com probabilidade } 1-p.
+\end{cases}
 $$
 
 A posição da partícula após $N$ passos é
@@ -59,10 +59,10 @@ $$
 
 em unidades em que o comprimento de cada passo é unitário.
 
-Para uma caminhada viesada com $p=0,62$, espera-se uma deriva média
+Para uma caminhada viesada com $p=0{,}62$, espera-se uma deriva média
 
 $$
-\langle X_N\rangle=N(2p-1)=0,24N.
+\langle X_N\rangle=N(2p-1)=0{,}24N.
 $$
 
 Dessa forma, após 1000 passos, a posição média teórica esperada é aproximadamente $240$ unidades.
@@ -96,11 +96,11 @@ A variável `rng` encapsula o gerador moderno de números pseudoaleatórios do N
 | `traj` | Trajetória cumulativa de uma caminhada rápida ou matriz com todas as trajetórias. |
 | `passos` em `randomwalkrapido` | Vetor de incrementos $+1$ ou $-1$ sorteados pelo NumPy. |
 | `trajetoria` | Soma cumulativa dos incrementos ao longo do tempo. |
-| `media1`, `media2` | Médias das posições do ensemble em cada instante, respectivamente para $p=0,62$ e $p=0,50$. |
+| `media1`, `media2` | Médias das posições do ensemble em cada instante, respectivamente para $p=0{,}62$ e $p=0{,}50$. |
 | `desviopadrao1`, `desviopadrao2` | Desvio padrão das posições no ensemble em cada instante. |
 | `x1`, `x2` | Matrizes cujas linhas representam o tempo e cujas colunas representam caminhantes. |
 | `num_bins` | Número de intervalos usados para construir os histogramas temporais. |
-| `bin_edges1`, `bin_edges2` | Limites dos bins das distribuições para $p=0,62$ e $p=0,50$. |
+| `bin_edges1`, `bin_edges2` | Limites dos bins das distribuições para $p=0{,}62$ e $p=0{,}50$. |
 | `hist1`, `hist2` | Contagens de caminhantes por intervalo de posição e instante de tempo. |
 | `tempo1`, `tempo2` | Malhas bidimensionais do eixo temporal usadas nas superfícies. |
 | `posicoes1`, `posicoes2` | Malhas bidimensionais das posições usadas nas superfícies. |
@@ -115,7 +115,7 @@ A função `randomwalklento(probabilidade, passos)` constrói uma lista começan
 2. se $r\geq 1-p$, soma-se $+1$;
 3. caso contrário, soma-se $-1$.
 
-Na prática, a condição acima é equivalente a sortear $+1$ com probabilidade $p$. Para $p=0,53$, a caminhada apresenta uma ligeira preferência para a direita.
+Na prática, a condição acima é equivalente a sortear $+1$ com probabilidade $p$. Para $p=0{,}53$, a caminhada apresenta uma ligeira preferência para a direita.
 
 ![Caminhada aleatória lenta](assets/notebook-output-1.png)
 
@@ -165,14 +165,14 @@ $$
 
 O gráfico compara:
 
-- cinco trajetórias azuis, para $p=0,62$;
-- cinco trajetórias rosadas, para $p=0,50$;
+- cinco trajetórias azuis, para $p=0{,}62$;
+- cinco trajetórias rosadas, para $p=0{,}50$;
 - a média em branco;
 - os limites $\mu_X\pm\sigma_X$ em linhas tracejadas.
 
 ![Trajetórias do ensemble e curvas estatísticas](assets/notebook-output-3.png)
 
-Para $p=0,62$, observa-se deriva contínua para posições positivas. Para $p=0,50$, a média permanece próxima de zero, enquanto as trajetórias individuais podem se afastar da origem devido ao caráter aleatório do processo.
+Para $p=0{,}62$, observa-se deriva contínua para posições positivas. Para $p=0{,}50$, a média permanece próxima de zero, enquanto as trajetórias individuais podem se afastar da origem devido ao caráter aleatório do processo.
 
 ## 6. Questão 6 — distribuição em instantes selecionados
 
@@ -216,7 +216,7 @@ As duas versões abaixo correspondem às representações `imshow` e `pcolormesh
 
 ![Mapa de calor com pcolormesh](assets/notebook-output-6.png)
 
-No caso $p=0,62$, a região de maior frequência desloca-se continuamente para posições positivas. No caso $p=0,50$, a região de concentração permanece centrada próximo de zero, ao mesmo tempo que se amplia com o tempo.
+No caso $p=0{,}62$, a região de maior frequência desloca-se continuamente para posições positivas. No caso $p=0{,}50$, a região de concentração permanece centrada próximo de zero, ao mesmo tempo que se amplia com o tempo.
 
 ### 7.3 Representação tridimensional
 
@@ -245,7 +245,7 @@ A última parte do notebook converte as duas superfícies em objetos gráficos i
 - `colorscale='Blues'`: escala cromática da frequência;
 - `cmin=0` e `cmax=100`: limites da barra de cores.
 
-Também são adicionadas linhas `go.Scatter3d` para mostrar a média. `media1[:, 0]` contém as médias sucessivas para $p=0,62$ e `media2[:, 0]`, as médias para $p=0,50$.
+Também são adicionadas linhas `go.Scatter3d` para mostrar a média. `media1[:, 0]` contém as médias sucessivas para $p=0{,}62$ e `media2[:, 0]`, as médias para $p=0{,}50$.
 
 O layout define:
 
@@ -261,7 +261,7 @@ Como o notebook não incorpora o gráfico Plotly em um arquivo estático, a visu
 
 As simulações ilustram dois comportamentos fundamentais:
 
-1. **Caminhada viesada:** a posição média cresce aproximadamente com $N(2p-1)$. Com $p=0,62$, a deriva é positiva e cresce de forma linear.
+1. **Caminhada viesada:** a posição média cresce aproximadamente com $N(2p-1)$. Com $p=0{,}62$, a deriva é positiva e cresce de forma linear.
 2. **Caminhada simétrica:** a posição média tende a permanecer próxima de zero. Mesmo assim, o desvio padrão aumenta aproximadamente como $\sqrt{N}$, indicando que o conjunto se espalha ao longo do tempo.
 
 Esse contraste é fisicamente relevante. Em uma caminhada aleatória usada como modelo de difusão isotrópica, não existe deslocamento líquido preferencial, mas existe crescimento da largura da distribuição. Quando existe uma força externa ou uma assimetria microscópica no movimento, a distribuição adquire deriva em uma direção.
